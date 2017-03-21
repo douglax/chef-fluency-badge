@@ -6,14 +6,13 @@
 
 
 package 'postgresql' do
-	notifies :run, 'execute[postgresql-init]'
+	notifies :run, 'execute[postgresql-init]', :immediately 
 end
 
 execute 'postgresql-init' do
-	command 'postgresql-setup initdb'
+	command '/usr/pgsql-9.4/bin/postgresql94-setup initdb'
 	action :nothing
 end
 
 service 'postgresql' do
-	action [:enable, :start]
 end
